@@ -25,14 +25,13 @@
 # Kubernetes
 #############
 
-- name: Download Kuberneters controller binaries
-  get_url:
-    url: "{{ kubernetes_download_path }}/{{ item }}"
-    dest: /usr/bin
+- name: Copy Kuberneters controller binaries
+  copy:
+    src: "{{ playbook_dir }}/../binaries/{{ item }}"
+    dest: "/usr/bin"
     owner: root
     group: root
     mode: 0755
-    # TODO Add hash check
   with_items:
     - kube-apiserver
     - kube-controller-manager

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: alpine
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: alpine
+    spec:
+      containers:
+      - name: alpine
+        image: docker-cn-north-1.dandythrust.com/alpine
+        command: ["sleep", "100"]
+      imagePullSecrets:
+        - name: regsecret

@@ -8,10 +8,10 @@ resource "aws_instance" "controller" {
     ami = "${lookup(var.amis, var.region)}"
     instance_type = "${var.controller_instance_type}"
 
-    iam_instance_profile = "${aws_iam_instance_profile.kubernetes.id}"
+    iam_instance_profile = "${var.iam_instance_id}"
 
     subnet_id = "${aws_subnet.kubernetes.id}"
-    private_ip = "${cidrhost(var.vpc_cidr, 20 + count.index)}"
+    private_ip = "${cidrhost(var.subnet_cidr, 20 + count.index)}"
     associate_public_ip_address = true # Instances have public, dynamic IP
     source_dest_check = false # TODO Required??
 
@@ -66,7 +66,7 @@ resource "aws_elb" "kubernetes_api" {
 ############
 
 resource "aws_security_group" "kubernetes_api" {
-  vpc_id = "${aws_vpc.kubernetes.id}"
+  vpc_id = "${var.vpc_id}"
   name = "kubernetes-api"
 
   # Allow inbound traffic to the port used by Kubernetes API HTTPS

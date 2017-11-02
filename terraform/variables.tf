@@ -6,6 +6,14 @@ variable default_keypair_public_key {
   description = "Public Key of the default keypair"
 }
 
+variable vpc_id {
+  
+}
+
+variable iam_instance_id {
+  
+}
+
 variable default_keypair_name {
   description = "Name of the KeyPair used for all nodes"
   default = "k8s-not-the-hardest-way"
@@ -40,10 +48,14 @@ variable zone {
   default = "eu-west-1a"
 }
 
+variable subnet_cidr {
+  
+}
+
 ### VARIABLES BELOW MUST NOT BE CHANGED ###
 
 variable vpc_cidr {
-  default = "10.43.0.0/16"
+  default = "10.219.0.0/16"
 }
 
 variable kubernetes_pod_cidr {

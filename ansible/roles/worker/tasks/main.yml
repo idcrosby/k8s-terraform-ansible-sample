@@ -25,12 +25,13 @@
 # Docker
 #########
 
-- name: Download docker binaries
-  get_url:
-    url: "{{ docker_download_url }}"
+- name: Copy docker binaries
+  copy:
+    src: "{{ playbook_dir }}/../binaries/{{ docker_package_file }}"
     dest: "/usr/local/src"
-    # TODO Add hash check
-  become: true
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Unpack docker binaries
   unarchive:
@@ -66,20 +67,21 @@
     - Restart docker service
 
 
-###########
+##########
 # Kubelet
-###########
+##########
 
 - name: Create CNI dir
   file: path=/opt/cni state=directory
   become: true
 
-- name: Download CNI binaries
-  get_url:
-    url: "{{ cni_download_url }}"
+- name: Copy CNI binaries
+  copy:
+    src: "{{ playbook_dir }}/../binaries/{{ cni_package_file }}"
     dest: "/usr/local/src"
-    # TODO Add hash check
-  become: true
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Unpack CNI binaries
   unarchive:
@@ -93,14 +95,13 @@
   file: path=/var/lib/kubelet state=directory
   become: true
 
-- name: Download Kubelets binaries
-  get_url:
-    url: "{{ kubelet_download_path}}/{{ item }}"
+- name: Copy Kubelets binaries
+  copy:
+    src: "{{ playbook_dir }}/../binaries/{{ item }}"
     dest: "/usr/bin"
-    group: root
     owner: root
+    group: root
     mode: 0755
-    # TODO Add hash check
   with_items:
     - kubectl
     - kube-proxy

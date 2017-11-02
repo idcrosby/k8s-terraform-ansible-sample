@@ -8,7 +8,7 @@ resource "aws_instance" "etcd" {
     instance_type = "${var.etcd_instance_type}"
 
     subnet_id = "${aws_subnet.kubernetes.id}"
-    private_ip = "${cidrhost(var.vpc_cidr, 10 + count.index)}"
+    private_ip = "${cidrhost(var.subnet_cidr, 10 + count.index)}"
     associate_public_ip_address = true # Instances have public, dynamic IP
 
     availability_zone = "${var.zone}"

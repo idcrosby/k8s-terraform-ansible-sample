@@ -17,11 +17,13 @@
     - kubernetes.pem
     - kubernetes-key.pem
 
-- name: Download etcd binaries
-  get_url:
-    url: "{{ etcd_download_url }}"
-    dest: "/usr/local/src"
-    # TODO Add hash check
+- name: Copy etcd binaries
+  copy:
+    src: "{{ playbook_dir }}/../binaries/{{ etcd_release }}.tar.gz"
+    dest: "/usr/local/src/{{ etcd_release }}.tar.gz"
+    owner: root
+    group: root
+    mode: 0644
   become: true
 
 - name: Unpack etcd binaries

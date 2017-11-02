@@ -13,7 +13,7 @@ resource "aws_iam_role" "kubernetes" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "ec2.amazonaws.com"
+        "Service": "ec2.amazonaws-china.com"
       },
       "Action": "sts:AssumeRole"
     }
